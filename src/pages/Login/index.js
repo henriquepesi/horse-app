@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
-import {View, TextInput, TouchableOpacity, Text, Image} from 'react-native';
 
 import logo from '../../assets/logo.png';
+import api from '../../services/api';
 
 import {
   Container,
@@ -13,16 +13,22 @@ import {
   FormButtonText,
 } from './styles';
 
-// import logo from '../../assets/LaunchScreenIcon@3x.png';
-
-export default function Login() {
+export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const passwordRef = useRef();
 
-  function handleLogin(event) {
+  async function handleLogin(event) {
     event.preventDefault();
+
+    await api.get('/', {
+      auth: {
+        username: email,
+        password: password,
+      },
+    });
+    navigation.navigate('Home');
   }
 
   return (
@@ -32,10 +38,10 @@ export default function Login() {
         <FormLabel>Email</FormLabel>
         <FormInput
           testID="useremail"
+          value={email}
           keyboardType="email-address"
           autoCorrect={false}
           autoCapitalize="none"
-          value={email}
           returnKeyType="next"
           onSubmitEditing={() => passwordRef.current.focus()}
           onChange={event => setEmail(event.target.value)}
@@ -44,14 +50,14 @@ export default function Login() {
         <FormLabel>Password</FormLabel>
         <FormInput
           testID="userpassword"
-          secureTextEntry
           value={password}
+          secureTextEntry
           ref={passwordRef}
           returnKeyType="send"
           onSubmitEditing={handleLogin}
           onChange={event => setPassword(event.target.value)}
         />
-        <FormButton onClick={handleLogin}>
+        <FormButton onPress={handleLogin}>
           <FormButtonText>Sign In</FormButtonText>
         </FormButton>
       </Form>
