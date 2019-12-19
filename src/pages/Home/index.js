@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {Text} from 'react-native';
+import {Text, ActivityIndicator} from 'react-native';
+import {connect, useDispatch} from 'react-redux';
 
 import api from '../../services/api';
 
@@ -12,17 +13,33 @@ import {
   HorseArrow,
   HorseArrowIcon,
   HorseBlock,
+  ButtonLogout,
+  ButtonLogoutText,
 } from './styles';
 
-export default function Home() {
+function Home(login) {
+  console.log(login);
   const [horses, setHorses] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    setLoading(true);
+
+    dispatch({
+      type: 'LOG_IN',
+    });
+    // navigation.navigate('Login');
+    setLoading(false);
+  }
 
   useEffect(() => {
     async function loadHorses() {
       const response = await api.get('/', {
         auth: {
-          username: 'foo@gmail.com',
-          password: 'bar',
+          username: login.loginData.email,
+          password: login.loginData.password,
         },
       });
       setHorses(response.data);
@@ -32,7 +49,6 @@ export default function Home() {
 
   return (
     <Container>
-      <Text>Home</Text>
       <HorseList
         data={horses}
         keyExtractor={horse => horse.id}
@@ -48,6 +64,13 @@ export default function Home() {
           </HorseBlock>
         )}
       />
+      <ButtonLogout onPress={handleLogout}>
+        {loading ? (
+          <ActivityIndicator color="#FFF" />
+        ) : (
+          <ButtonLogoutText color="#FFF">Logout</ButtonLogoutText>
+        )}
+      </ButtonLogout>
     </Container>
   );
 }
@@ -66,3 +89,7 @@ Home.navigationOptions = {
 
   headerTitleStyle: {textAlign: 'center', alignSelf: 'center', fontSize: 35},
 };
+
+export default connect(state => ({
+  loginData: state,
+}))(Home);

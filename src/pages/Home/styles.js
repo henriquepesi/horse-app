@@ -41,6 +41,20 @@ export const HorseArrow = styled.TouchableOpacity`
   align-self: flex-end;
 `;
 
+export const ButtonLogout = styled.TouchableOpacity`
+  background: #ff0000;
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  margin: 10px 0 20px 0;
+`;
+
+export const ButtonLogoutText = styled.Text`
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+`;
+
 export const HorseArrowIcon = styled.Text`
   color: #fff;
   align-items: center;

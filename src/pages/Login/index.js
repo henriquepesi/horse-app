@@ -1,4 +1,5 @@
 import React, {useState, useRef} from 'react';
+import {useDispatch} from 'react-redux';
 
 import {Alert, ActivityIndicator} from 'react-native';
 
@@ -19,12 +20,20 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const passwordRef = useRef();
 
   async function handleLogin() {
     setLoading(true);
     console.log(email, password);
+
+    dispatch({
+      type: 'LOG_IN',
+      email,
+      password,
+    });
+
     try {
       await api.get('/', {
         auth: {
