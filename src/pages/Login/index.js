@@ -1,5 +1,7 @@
 import React, {useState, useRef} from 'react';
 
+import {Alert} from 'react-native';
+
 import logo from '../../assets/logo.png';
 import api from '../../services/api';
 
@@ -19,16 +21,18 @@ export default function Login({navigation}) {
 
   const passwordRef = useRef();
 
-  async function handleLogin(event) {
-    event.preventDefault();
-
-    await api.get('/', {
-      auth: {
-        username: email,
-        password: password,
-      },
-    });
-    navigation.navigate('Home');
+  async function handleLogin() {
+    try {
+      await api.post('/', {
+        auth: {
+          username: email,
+          password: password,
+        },
+      });
+      navigation.navigate('Home');
+    } catch (error) {
+      // Alert.alert('Error', 'Check your user and password');
+    }
   }
 
   return (
@@ -64,3 +68,7 @@ export default function Login({navigation}) {
     </Container>
   );
 }
+
+Login.navigationOptions = {
+  headerMode: 'none',
+};

@@ -11,8 +11,12 @@ const Routes = createAppContainer(
       Home,
     },
     {
-      headerMode: 'none',
+      headerLayoutPreset: 'center',
+      headerBackTitleVisible: false,
     },
+    // {
+    //   headerMode: 'none',
+    // },
   ),
 );
 
