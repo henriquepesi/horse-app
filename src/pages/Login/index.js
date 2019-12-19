@@ -22,8 +22,9 @@ export default function Login({navigation}) {
   const passwordRef = useRef();
 
   async function handleLogin() {
+    console.log(email, password);
     try {
-      await api.post('/', {
+      await api.get('/', {
         auth: {
           username: email,
           password: password,
@@ -31,7 +32,9 @@ export default function Login({navigation}) {
       });
       navigation.navigate('Home');
     } catch (error) {
-      // Alert.alert('Error', 'Check your user and password');
+      console.log(error);
+      Alert.alert('Error', 'Check your email and password');
+      setPassword('');
     }
   }
 
@@ -48,7 +51,7 @@ export default function Login({navigation}) {
           autoCapitalize="none"
           returnKeyType="next"
           onSubmitEditing={() => passwordRef.current.focus()}
-          onChange={event => setEmail(event.target.value)}
+          onChangeText={text => setEmail(text)}
         />
 
         <FormLabel>Password</FormLabel>
@@ -59,7 +62,7 @@ export default function Login({navigation}) {
           ref={passwordRef}
           returnKeyType="send"
           onSubmitEditing={handleLogin}
-          onChange={event => setPassword(event.target.value)}
+          onChangeText={text => setPassword(text)}
         />
         <FormButton onPress={handleLogin}>
           <FormButtonText>Sign In</FormButtonText>
@@ -70,5 +73,5 @@ export default function Login({navigation}) {
 }
 
 Login.navigationOptions = {
-  headerMode: 'none',
+  header: null,
 };
