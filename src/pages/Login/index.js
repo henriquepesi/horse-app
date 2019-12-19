@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 
-import {Alert} from 'react-native';
+import {Alert, ActivityIndicator} from 'react-native';
 
 import logo from '../../assets/logo.png';
 import api from '../../services/api';
@@ -18,10 +18,12 @@ import {
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const passwordRef = useRef();
 
   async function handleLogin() {
+    setLoading(true);
     console.log(email, password);
     try {
       await api.get('/', {
@@ -36,6 +38,7 @@ export default function Login({navigation}) {
       Alert.alert('Error', 'Check your email and password');
       setPassword('');
     }
+    setLoading(false);
   }
 
   return (
@@ -64,8 +67,12 @@ export default function Login({navigation}) {
           onSubmitEditing={handleLogin}
           onChangeText={text => setPassword(text)}
         />
-        <FormButton onPress={handleLogin}>
-          <FormButtonText>Sign In</FormButtonText>
+        <FormButton loading={loading} onPress={handleLogin}>
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <FormButtonText>Sign In</FormButtonText>
+          )}
         </FormButton>
       </Form>
     </Container>

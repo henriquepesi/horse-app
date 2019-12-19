@@ -33,6 +33,7 @@ export const FormButton = styled.TouchableOpacity`
   text-align: center;
   border-radius: 5px;
   margin: 10px 0 20px 0;
+  opacity: ${props => (props.loading ? 0.5 : 1)};
 `;
 
 export const FormButtonText = styled.Text`
