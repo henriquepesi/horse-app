@@ -6,9 +6,6 @@ export default function login(
   },
   action,
 ) {
-  console.log(`O novo user é ${state.email} e a senha ${state.password}`);
-  console.log(state);
-
   switch (action.type) {
     case 'LOG_IN':
       if (!state.log) {

@@ -44,9 +44,12 @@ export default function Login({navigation}) {
       navigation.navigate('Home');
     } catch (error) {
       console.log(error);
+      console.log(error);
       Alert.alert('Error', 'Check your email and password');
       setPassword('');
     }
+    setEmail('');
+    setPassword('');
     setLoading(false);
   }
 

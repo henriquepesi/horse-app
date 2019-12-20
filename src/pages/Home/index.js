@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, ActivityIndicator} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {connect, useDispatch} from 'react-redux';
 
 import api from '../../services/api';
@@ -17,8 +17,7 @@ import {
   ButtonLogoutText,
 } from './styles';
 
-function Home(login) {
-  console.log(login);
+function Home({email, password, navigation}) {
   const [horses, setHorses] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +29,7 @@ function Home(login) {
     dispatch({
       type: 'LOG_IN',
     });
-    // navigation.navigate('Login');
+    navigation.navigate('Login');
     setLoading(false);
   }
 
@@ -38,8 +37,8 @@ function Home(login) {
     async function loadHorses() {
       const response = await api.get('/', {
         auth: {
-          username: login.loginData.email,
-          password: login.loginData.password,
+          username: email,
+          password: password,
         },
       });
       setHorses(response.data);
@@ -91,5 +90,6 @@ Home.navigationOptions = {
 };
 
 export default connect(state => ({
-  loginData: state,
+  email: state.email,
+  password: state.password,
 }))(Home);
