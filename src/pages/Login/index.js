@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import React, {useState, useRef} from 'react';
+import {useDispatch} from 'react-redux';
 
 import {Alert, ActivityIndicator} from 'react-native';
 
@@ -21,14 +21,6 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
-  const login = useSelector(state => state.login);
-
-  useEffect(() => {
-    if (login) {
-      navigation.navigate('Home');
-    }
-  }, []);
 
   const passwordRef = useRef();
 
@@ -92,7 +84,3 @@ export default function Login({navigation}) {
     </Container>
   );
 }
-
-Login.navigationOptions = {
-  header: null,
-};
