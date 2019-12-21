@@ -1,5 +1,4 @@
 # horse-app
-![Alt Text](https://media.giphy.com/media/WqXL0Trdkaxw73x9nL/giphy.gif)
 
 <p align="center">
   <img alt="Horse App" src="https://media.giphy.com/media/WqXL0Trdkaxw73x9nL/giphy.gif">
@@ -22,4 +21,7 @@ $ react-native run-ios --simulator="iPhone XS Max"
 
 # Run the app (Android)
 $ react-native run-android
+
+# Tests)
+$ yarn test
 ```
