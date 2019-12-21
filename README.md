@@ -11,7 +11,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com), [Node
 $ git clone https://github.com/henriquepesi/horse-app.git
 
 # Go into the repository
-$ cd horse-app-react-native
+$ cd horse-app
 
 # Install dependencies
 $ yarn install
@@ -22,6 +22,6 @@ $ react-native run-ios --simulator="iPhone XS Max"
 # Run the app (Android)
 $ react-native run-android
 
-# Tests)
+# Tests
 $ yarn test
 ```
