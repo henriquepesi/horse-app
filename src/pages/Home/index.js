@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator} from 'react-native';
-import {connect, useDispatch} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 
 import api from '../../services/api';
 
@@ -17,9 +17,12 @@ import {
   ButtonLogoutText,
 } from './styles';
 
-function Home({email, password, navigation}) {
+//{email, password, navigation}
+
+export default function Home({navigation}) {
   const [horses, setHorses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const {email, password} = useSelector(state => state);
 
   const dispatch = useDispatch();
 
@@ -86,8 +89,3 @@ Home.navigationOptions = {
 
   headerTitleStyle: {textAlign: 'center', fontSize: 35},
 };
-
-export default connect(state => ({
-  email: state.email,
-  password: state.password,
-}))(Home);

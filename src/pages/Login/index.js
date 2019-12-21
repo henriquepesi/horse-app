@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {connect, useDispatch} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 
 import {Alert, ActivityIndicator} from 'react-native';
 
@@ -16,11 +16,13 @@ import {
   FormButtonText,
 } from './styles';
 
-function Login({login, navigation}) {
+export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+
+  const login = useSelector(state => state.login);
 
   useEffect(() => {
     if (login) {
@@ -94,7 +96,3 @@ function Login({login, navigation}) {
 Login.navigationOptions = {
   header: null,
 };
-
-export default connect(state => ({
-  login: state.log,
-}))(Login);
