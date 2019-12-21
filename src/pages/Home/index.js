@@ -44,7 +44,7 @@ function Home({email, password, navigation}) {
       setHorses(response.data);
     }
     loadHorses();
-  });
+  }, []);
 
   return (
     <Container>
@@ -76,17 +76,15 @@ function Home({email, password, navigation}) {
 
 Home.navigationOptions = {
   title: 'Horses',
-  headerBackTitleVisible: false,
 
   headerStyle: {
     backgroundColor: '#090f17',
   },
   headerTintColor: '#ff0000',
   fontSize: 30,
-  fontWeight: 'bold',
   headerLeft: null,
 
-  headerTitleStyle: {textAlign: 'center', alignSelf: 'center', fontSize: 35},
+  headerTitleStyle: {textAlign: 'center', fontSize: 35},
 };
 
 export default connect(state => ({

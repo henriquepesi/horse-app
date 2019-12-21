@@ -1,5 +1,5 @@
-import React, {useState, useRef} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useState, useEffect, useRef} from 'react';
+import {connect, useDispatch} from 'react-redux';
 
 import {Alert, ActivityIndicator} from 'react-native';
 
@@ -16,23 +16,22 @@ import {
   FormButtonText,
 } from './styles';
 
-export default function Login({navigation}) {
+function Login({login, navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (login) {
+      navigation.navigate('Home');
+    }
+  }, []);
+
   const passwordRef = useRef();
 
   async function handleLogin() {
     setLoading(true);
-    console.log(email, password);
-
-    dispatch({
-      type: 'LOG_IN',
-      email,
-      password,
-    });
 
     try {
       await api.get('/', {
@@ -41,15 +40,16 @@ export default function Login({navigation}) {
           password: password,
         },
       });
+      dispatch({
+        type: 'LOG_IN',
+        email,
+        password,
+      });
       navigation.navigate('Home');
     } catch (error) {
-      console.log(error);
-      console.log(error);
       Alert.alert('Error', 'Check your email and password');
       setPassword('');
     }
-    setEmail('');
-    setPassword('');
     setLoading(false);
   }
 
@@ -94,3 +94,7 @@ export default function Login({navigation}) {
 Login.navigationOptions = {
   header: null,
 };
+
+export default connect(state => ({
+  login: state.log,
+}))(Login);
