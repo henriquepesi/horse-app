@@ -27,15 +27,6 @@ export const FormInput = styled.TextInput`
   margin: 5px 0 15px;
 `;
 
-export const FormButton = styled.TouchableOpacity`
-  background: #ff0000;
-  padding: 15px;
-  text-align: center;
-  border-radius: 5px;
-  margin: 10px 0 20px 0;
-  opacity: ${props => (props.loading ? 0.5 : 1)};
-`;
-
 export const FormButtonText = styled.Text`
   color: #fff;
   font-size: 20px;

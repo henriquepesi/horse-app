@@ -6,13 +6,14 @@ import {Alert, ActivityIndicator} from 'react-native';
 import logo from '../../assets/logo.png';
 import api from '../../services/api';
 
+import Button from '../../components/Button';
+
 import {
   Container,
   Logo,
   Form,
   FormLabel,
   FormInput,
-  FormButton,
   FormButtonText,
 } from './styles';
 
@@ -50,6 +51,7 @@ export default function Login({navigation}) {
   return (
     <Container>
       <Logo source={logo} />
+
       <Form testID="login-form" onSubmit={handleLogin}>
         <FormLabel>Email</FormLabel>
         <FormInput
@@ -73,14 +75,22 @@ export default function Login({navigation}) {
           onSubmitEditing={handleLogin}
           onChangeText={text => setPassword(text)}
         />
-        <FormButton loading={loading} onPress={handleLogin}>
-          {loading ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <FormButtonText>Sign In</FormButtonText>
-          )}
-        </FormButton>
+        <Button
+          loading={loading}
+          value={
+            loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <FormButtonText>Log in</FormButtonText>
+            )
+          }
+          press={handleLogin}
+        />
       </Form>
     </Container>
   );
 }
+
+Login.navigationOptions = {
+  header: null,
+};

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator} from 'react-native';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import api from '../../services/api';
 
@@ -13,9 +13,10 @@ import {
   HorseArrow,
   HorseArrowIcon,
   HorseBlock,
-  ButtonLogout,
   ButtonLogoutText,
 } from './styles';
+
+import Button from '../../components/Button';
 
 //{email, password, navigation}
 
@@ -46,8 +47,9 @@ export default function Home({navigation}) {
       });
       setHorses(response.data);
     }
+
     loadHorses();
-  }, []);
+  });
 
   return (
     <Container>
@@ -66,13 +68,17 @@ export default function Home({navigation}) {
           </HorseBlock>
         )}
       />
-      <ButtonLogout onPress={handleLogout}>
-        {loading ? (
-          <ActivityIndicator color="#FFF" />
-        ) : (
-          <ButtonLogoutText color="#FFF">Logout</ButtonLogoutText>
-        )}
-      </ButtonLogout>
+      <Button
+        loading={loading}
+        value={
+          loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <ButtonLogoutText color="#FFF">Logout</ButtonLogoutText>
+          )
+        }
+        press={handleLogout}
+      />
     </Container>
   );
 }

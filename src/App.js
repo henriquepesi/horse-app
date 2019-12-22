@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import createRouter from './routes';
 
 export default function App() {
-  const log = useSelector(state => state.log);
+  const {log} = useSelector(state => state);
 
   const Routes = createRouter(log);
 
