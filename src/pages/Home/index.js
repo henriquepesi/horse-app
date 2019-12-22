@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import Axios from 'axios';
 
 import api from '../../services/api';
 
@@ -38,6 +39,8 @@ export default function Home({navigation}) {
   }
 
   useEffect(() => {
+    let mounted = true;
+
     async function loadHorses() {
       const response = await api.get('/', {
         auth: {
@@ -45,10 +48,16 @@ export default function Home({navigation}) {
           password: password,
         },
       });
-      setHorses(response.data);
+      if (mounted) {
+        setHorses(response.data);
+      }
     }
 
     loadHorses();
+
+    return () => {
+      mounted = false;
+    };
   }, [email, password]);
 
   return (
